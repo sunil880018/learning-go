@@ -56,7 +56,6 @@ func reverse(arr []int) {
 }
 
 func main() {
-	// Example usage:
 	root := &TreeNode{Val: 1}
 	root.Left = &TreeNode{Val: 2}
 	root.Right = &TreeNode{Val: 3}

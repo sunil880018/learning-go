@@ -52,7 +52,7 @@ func verticalTraversal(root *TreeNode) [][]int {
 }
 
 func main() {
-	// Example binary tree creation
+
 	root := &TreeNode{val: 1}
 	root.left = &TreeNode{val: 2}
 	root.right = &TreeNode{val: 3}
