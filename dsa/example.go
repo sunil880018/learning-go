@@ -7,11 +7,11 @@ import (
 func main() {
 	alphabets := "abcdefgh"
 
-	output := []rune{} // Initialize an empty slice of runes
-	vowels := []rune{} // Initialize another empty slice of runes
+	output := []byte{} // Initialize an empty slice of bytes
+	vowels := []byte{} // Initialize another empty slice of bytes
 
 	for i := 0; i < len(alphabets); i++ {
-		letter := rune(alphabets[i]) // Convert byte to rune
+		letter := alphabets[i]
 		if letter == 'a' || letter == 'e' || letter == 'i' || letter == 'o' || letter == 'u' {
 			vowels = append(vowels, letter)
 		} else {

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"sort"
 )
 
@@ -23,7 +24,7 @@ func merge(intervals [][]int) [][]int {
 
 		if currentInterval[0] <= lastMerged[1] {
 			// Merge intervals by updating the end time of the last merged interval
-			lastMerged[1] = max(lastMerged[1], currentInterval[1])
+			lastMerged[1] = int(math.Max(float64(lastMerged[1]), float64(currentInterval[1])))
 		} else {
 			// If they don't overlap, add the current interval to the result
 			merged = append(merged, currentInterval)
@@ -31,13 +32,6 @@ func merge(intervals [][]int) [][]int {
 	}
 
 	return merged
-}
-
-func max(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
 }
 
 func main() {

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 func lengthOfLongestSubstring(s string) int {
@@ -15,18 +16,10 @@ func lengthOfLongestSubstring(s string) int {
 			left = lastIndex + 1
 		}
 		freq[s[i]] = i // Update the last seen index of the character
-		maximumLength = max(maximumLength, i-left+1)
+		maximumLength = int(math.Max(float64(maximumLength), float64(i-left+1)))
 	}
 
 	return maximumLength
-}
-
-// Helper function to find the maximum of two integers
-func max(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
 }
 
 func main() {

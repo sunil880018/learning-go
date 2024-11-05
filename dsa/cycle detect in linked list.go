@@ -18,7 +18,7 @@ func (s *Solution) detectCycle(head *ListNode) *ListNode {
 			return head // Cycle detected
 		}
 		visited[head] = struct{}{} // Mark the node as visited
-		head = head.next           // Move to the next node
+		head = head.next
 	}
 	return nil // No cycle detected
 }
