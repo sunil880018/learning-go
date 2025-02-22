@@ -25,14 +25,12 @@ func main() {
 	defer fmt.Println("Deferred 1")
 	defer fmt.Println("Deferred 2")
 
-	fmt.Println("End")
-
 	f, err := os.Open("text.txt")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-
+	fmt.Println("End")
 	// Defer closing the file
 	defer f.Close()
 }

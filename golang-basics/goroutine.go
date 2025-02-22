@@ -10,15 +10,17 @@ import (
 )
 
 func printMessage(msg string) {
-	for i := 0; i < 3; i++ {
+	for i := 1; i <= 3; i++ {
 		fmt.Println(msg)
 		time.Sleep(1 * time.Second)
 	}
 }
 
 func main() {
-	go printMessage("Hello, Goroutine!") // Starts a new goroutine
-	printMessage("Main Function")
+	go printMessage("Hello, Goroutine!") // Starts a new goroutine, this is separate goroutine
+	printMessage("Main Function")        // run in main goroutine means main thread
+	// The Go runtime does not wait for goroutines to finish unless explicitly told to.
+	// The main goroutine (main function) terminates, causing all other child goroutines to be stopped immediately.
 }
 
 // goroutines often communicate with each other using channels.

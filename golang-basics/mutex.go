@@ -7,8 +7,8 @@
 
 // Types of Mutexes:
 
-// sync.Mutex: This is the standard mutex in Go, providing simple mutual exclusion. Once locked, any other goroutine trying to
-// acquire the lock will block until the mutex is unlocked.
+// sync.Mutex: This is the standard mutex in Go, providing simple mutual exclusion. Once locked,
+// any other goroutine trying to acquire the lock will block until the mutex is unlocked.
 
 // sync.RWMutex: This is a read-write mutex. It allows multiple readers to hold the lock simultaneously, but only
 // one writer can hold the lock, and no readers are allowed when a writer holds the lock.
@@ -42,8 +42,10 @@ func main() {
 		go increment(&wg)
 	}
 
+	fmt.Println("World")
 	wg.Wait()
 	fmt.Println("Final Counter:", counter)
+	fmt.Println("Hello")
 }
 
 // When to Use a Mutex:

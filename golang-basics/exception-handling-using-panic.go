@@ -1,5 +1,6 @@
 package main
 
+// Go does not have traditional exception handling like try-catch in other languages
 import "fmt"
 
 func riskyOperation() {

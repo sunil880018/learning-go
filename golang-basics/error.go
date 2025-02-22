@@ -16,6 +16,6 @@ func sqrt(x float64) (float64, error) {
 }
 
 func main() {
-	r, err := sqrt(34)
+	r, err := sqrt(-34)
 	fmt.Println(r, err)
 }
