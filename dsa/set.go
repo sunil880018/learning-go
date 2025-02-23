@@ -19,5 +19,6 @@ func main() {
 	// Iterating over the set
 	for key := range set {
 		fmt.Println(key)
+		fmt.Println(set[key])
 	}
 }
