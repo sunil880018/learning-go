@@ -1,4 +1,5 @@
-// Clients should not be forced to implement interfaces they do not use. Instead of a large interface, split it into smaller, more specific ones.
+// Clients should not be forced to implement interfaces they do not use. Instead of a large interface,
+// split it into smaller, more specific ones.
 package main
 
 import (
