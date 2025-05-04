@@ -1,7 +1,7 @@
 // 1. How does Go achieve concurrency, and how is it different from parallelism?
 // Answer:
 
-// Concurrency is about dealing with multiple tasks at once, while parallelism is about running multiple tasks simultaneously.
+// Concurrency (assign Single CPU) is about dealing with multiple tasks at once, while parallelism (assign multiple CPUs) is about running multiple tasks simultaneously.
 
 // Go achieves concurrency using goroutines (lightweight threads) and channels (communication mechanism).
 

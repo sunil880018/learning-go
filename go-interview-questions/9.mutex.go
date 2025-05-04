@@ -5,6 +5,7 @@ import (
 	"sync"
 )
 
+// mutex is  prevent multiple goroutines from accessing shared data at the same time.
 // Counter with a mutex for safe concurrent access
 type Counter struct {
 	mu    sync.Mutex // Mutex to synchronize access
