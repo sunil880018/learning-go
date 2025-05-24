@@ -6,11 +6,10 @@ import (
 )
 
 // Creating Custom Errors
-var ErrNegativeInput = errors.New("input cannot be negative")
 
 func sqrt(x float64) (float64, error) {
 	if x < 0 {
-		return 0, ErrNegativeInput
+		return 0, errors.New("input cannot be negative")
 	}
 	return x * x, nil
 }

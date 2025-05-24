@@ -19,7 +19,6 @@ func riskyOperation() {
 }
 
 func main() {
-	fmt.Println("Starting risky operation")
 	riskyOperation()
 	fmt.Println("Program continues after recovery")
 }
