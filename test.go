@@ -2,22 +2,23 @@ package main
 
 import "fmt"
 
-type Animal struct{}
-
-func (a Animal) Speak() {
-	fmt.Println("Animal speaks")
+type Person struct {
+	Name string
 }
 
-type Dog struct {
-	Animal
+// Method on Person
+func (p Person) Greet() {
+	fmt.Printf("Hello, my name is %s\n", p.Name)
 }
 
-func (d Dog) Speak() { // This "overrides" Animal.Speak
-	fmt.Println("Dog barks")
+type Student struct {
+	Person
 }
 
 func main() {
-	d := Dog{}
-	d.Speak()        // Dog's Speak is called
-	d.Animal.Speak() // Call base version if needed
+	s := &Student{Person{Name: "Sunil"}}
+
+	// Call method from embedded struct
+	s.Greet()
 }
+
