@@ -45,7 +45,6 @@ func main() {
 	fmt.Println("World")
 	wg.Wait()
 	fmt.Println("Final Counter:", counter)
-	fmt.Println("Hello")
 }
 
 // When to Use a Mutex:

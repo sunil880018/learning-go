@@ -65,3 +65,15 @@ func main() {
 	fmt.Println("Remaining stock for iPhone:", inv.GetStock("iPhone"))
 	fmt.Println("Remaining stock for MacBook:", inv.GetStock("MacBook"))
 }
+
+// output
+// 📦 Added 10 units of iPhone. Total stock: 10
+// 📦 Added 5 units of MacBook. Total stock: 5
+// ✅ MacBook purchased. Remaining stock: 4
+// ✅ iPhone purchased. Remaining stock: 9
+// ✅ MacBook purchased. Remaining stock: 3
+// ✅ iPhone purchased. Remaining stock: 8
+// ✅ iPhone purchased. Remaining stock: 7
+// ✅ MacBook purchased. Remaining stock: 2
+// Remaining stock for iPhone: 7
+// Remaining stock for MacBook: 2
