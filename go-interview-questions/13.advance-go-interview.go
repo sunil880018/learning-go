@@ -60,9 +60,6 @@
 
 // Real-world use: timeout pattern.
 
-// go
-// Copy
-// Edit
 // select {
 // case res := <-resultChan:
 //     fmt.Println(res)
@@ -75,10 +72,6 @@
 // Use the context package (context.WithCancel, context.WithTimeout, etc.) to cancel goroutines.
 
 // Example:
-
-// go
-// Copy
-// Edit
 // ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 // defer cancel()
 

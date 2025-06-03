@@ -29,7 +29,7 @@ func main() {
 	go consumer(ch, done)
 
 	// Wait for consumer to finish
-	<-done
+	<-done // this is using because main function can wait
 }
 
 // output

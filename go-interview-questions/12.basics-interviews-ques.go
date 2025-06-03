@@ -42,9 +42,6 @@
 // 8. How is error handling done in Go?
 // Go uses error values (returning error type) instead of exceptions. Example:
 
-// go
-// Copy
-// Edit
 // if err != nil {
 //   // handle error
 // }

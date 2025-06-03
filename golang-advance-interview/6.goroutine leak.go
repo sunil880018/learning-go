@@ -5,15 +5,34 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
 	ch := make(chan int)
-	// This goroutine waits forever, leaking memory
+
+	// This goroutine will leak because it's waiting for a value from a channel
 	go func() {
-		<-ch
-		fmt.Println("Unreachable")
+		x := <-ch                   // Blocked forever: no one writes to ch
+		fmt.Println("Received:", x) // This line will never execute
 	}()
 
 	fmt.Println("Main exits, but goroutine is stuck")
+	time.Sleep(2 * time.Second) // Give some time to show goroutine is blocked
+}
+
+// correct make buffer channel or context.WithTimeout(context.Background(), 2*time.Second)
+func main() {
+	ch := make(chan int, 1)
+
+	go func() {
+		ch <- 4
+		x := <-ch
+		fmt.Println("Received:", x)
+	}()
+
+	fmt.Println("Main exits, but goroutine is stuck")
+	time.Sleep(2 * time.Second)
 }
