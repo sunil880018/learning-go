@@ -21,8 +21,6 @@
 // 3. What are data races in Go? How do you detect and avoid them?
 // Answer:
 
-// A data race occurs when:
-
 // Two or more goroutines access the same variable concurrently.
 
 // At least one of them writes to the variable.

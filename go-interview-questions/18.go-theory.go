@@ -1,4 +1,4 @@
-🌀 What is a Goroutine?
+  What is a Goroutine?
 A goroutine is a lightweight, concurrent function execution managed by the Go runtime.
 
 You create a goroutine simply by prefixing a function call with the go keyword:
