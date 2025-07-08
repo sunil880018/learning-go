@@ -2,7 +2,30 @@ package main
 
 import "fmt"
 
+// Base struct
+type Animal struct {
+	Name string
+}
+
+func (a Animal) Speak() {
+	fmt.Println(a.Name, "makes a sound")
+}
+
+type Dog struct {
+	Animal // embedded struct (inheritance-like)
+	Breed  string
+}
+
+func (d Dog) Bark() {
+	fmt.Println(d.Name, "barks! Woof!")
+}
+
 func main() {
-	s := [][]int{{2, 3, 5, 6, 3}, {2, 33, 25, 6, 3}}
-	fmt.Println(s)
+	d := Dog{
+		Animal: Animal{Name: "Buddy"},
+		Breed:  "Golden Retriever",
+	}
+
+	d.Speak() // inherited from Animal
+	d.Bark()  // Dog's own method
 }
