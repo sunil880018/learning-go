@@ -33,7 +33,7 @@ func main() {
 // another way
 
 // ------------- use this when --------------------
-// When you dont know all the values are of the same type use interfac with map
+// When you dont know all the values are of the same type use interface with map
 
 // y := map[string]interface{}{
 // 		"status":  200,
