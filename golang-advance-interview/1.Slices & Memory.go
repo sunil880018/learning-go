@@ -11,6 +11,10 @@ func main() {
 	b[0] = 99
 	fmt.Println("a:", a) // Output: a: [99 2 3]
 	fmt.Println("b:", b) // Output: b: [99 2 3]
+	c := deepCopy(a)     // deep copy: c has its own underlying array
+	c[0] = 100
+	fmt.Println("a:", a) // Output: a: [99 2 3]
+	fmt.Println("c:", c) // Output: c: [100 2 3]
 }
 
 // dep copy

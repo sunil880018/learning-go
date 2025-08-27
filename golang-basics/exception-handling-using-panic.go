@@ -11,7 +11,7 @@ func riskyOperation() {
 	}()
 
 	// Simulate a panic situation (e.g., divide by zero)
-	n, d := 10, 0
+	n, d := 10, 1
 	if d == 0 {
 		panic("division by zero")
 	}

@@ -12,9 +12,9 @@ var s []int = []int{1, 2, 3}     // slice
 | Can grow? | ❌ No  | ✅ Yes (via `append`) |
 
 ✅ 3. Memory & Reference Behavior
-array
+// array
 func modifyArr(a [3]int) { a[0] = 100 }
-slice
+// slice
 func modifySlice(s []int) { s[0] = 100 }
 
 ✅ 4. Built-in Operations
