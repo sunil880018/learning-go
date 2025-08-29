@@ -1,0 +1,27 @@
+services:
+  redis:
+    image: redis:7.2-alpine     # ~30MB instead of ~117MB
+    container_name: redis_service
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--save", "60", "1", "--loglevel", "warning"]
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15-alpine   # ~40MB instead of ~445MB
+    container_name: postgres_service
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydb
+    ports:
+      - "5445:5432" # "HOST_PORT:CONTAINER_PORT"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  redis_data:
+  postgres_data:
