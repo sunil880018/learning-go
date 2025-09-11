@@ -1,0 +1,7 @@
+id,name,image,price,quantity,out_of_stock
+1,Apple iPhone 15,https://example.com/iphone15.jpg,200,3,FALSE
+2,Apple iPhone 16,https://example.com/iphone15.jpg,200,3,FALSE
+3,Apple iPhone 17,https://example.com/iphone15.jpg,200,3,FALSE
+4,Apple iPhone 18,https://example.com/iphone15.jpg,200,3,FALSE
+5,Apple iPhone 19,https://example.com/iphone15.jpg,200,3,FALSE
+6,Apple iPhone 20,https://example.com/iphone15.jpg,200,3,FALSE
