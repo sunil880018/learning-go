@@ -39,6 +39,10 @@ func main() {
 
 	// Handle all websocket connections for chat rooms dynamically
 	http.HandleFunc("/room", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet {
+			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+			return
+		}
 		roomName := r.URL.Query().Get("room")
 		if roomName == "" {
 			http.Error(w, "Room name required", http.StatusBadRequest)

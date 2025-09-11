@@ -22,7 +22,13 @@ type client struct {
 	name string
 }
 
-// Used to send messages
+// ----- read()
+
+// 1.Listens for incoming messages from the client’s WebSocket.
+// 2.Converts message into JSON with username + text.
+// 3.Sends it to the room’s forward channel → so the room can broadcast it.
+
+// Used to send messages from frontend to backend
 func (c *client) read() {
 	// close the connection when we are done
 	defer c.socket.Close()
@@ -49,6 +55,11 @@ func (c *client) read() {
 		c.room.forward <- jsMessage
 	}
 }
+
+// ------- write()
+
+// 1.Listens on c.receive channel.
+// 2.Sends messages back to the WebSocket client.
 
 func (c *client) write() {
 	defer c.socket.Close()

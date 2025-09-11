@@ -26,6 +26,7 @@ type room struct {
 	forward chan []byte
 }
 
+// Creates a new chat room with empty clients map and channels.
 func newRoom() *room {
 	return &room{
 		forward: make(chan []byte),
@@ -34,6 +35,13 @@ func newRoom() *room {
 		clients: make(map[*client]bool),
 	}
 }
+
+// ------run()
+
+// Infinite loop that reacts to events:
+// join: add client to room.
+// leave: remove client from room, close their channel.
+// forward: broadcast a message to all connected clients.
 
 func (r *room) run() {
 	for {
@@ -61,6 +69,7 @@ var upgrader = &websocket.Upgrader{ReadBufferSize: socketBufferSize, WriteBuffer
 var rooms = make(map[string]*room)
 var mu sync.Mutex
 
+// getRoom returns an existing room or creates a new one
 func getRoom(name string) *room {
 	mu.Lock()
 	defer mu.Unlock()
