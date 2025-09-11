@@ -18,3 +18,5 @@
 - Each client represents a single user connected via WebSocket.
 - `read()` → listens for incoming messages from this user.
 - `write()` → sends outgoing messages to this user.
+
+### https://second-viper-21a.notion.site/Gin-Package-16cf1fff91fb801cb536f1edc5b474c7
