@@ -32,7 +32,6 @@
 // -------------- Message Queue ------------------------
 // ✅ Yes — using a message queue here is not only feasible but highly recommended for
 // production-scale systems handling 1 lakh+ records and third-party API calls.
-// Let’s break it down:
 
 // ✅ When to Use a Message Queue (MQ)?
 // You should use a message queue when:
