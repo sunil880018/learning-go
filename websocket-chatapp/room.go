@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"math/rand"
@@ -8,6 +9,7 @@ import (
 	"sync"
 
 	"github.com/gorilla/websocket"
+	"github.com/redis/go-redis/v9"
 )
 
 type room struct {
@@ -22,17 +24,49 @@ type room struct {
 	leave chan *client
 
 	// forward is a channel that holds incoming messages that should be forwarded to the other clients.
-
 	forward chan []byte
+
+	name string
 }
 
+// Redis client
+var rdb = redis.NewClient(&redis.Options{
+	Addr: "localhost:6379", // default Redis
+})
+
+var ctx = context.Background()
+
 // Creates a new chat room with empty clients map and channels.
-func newRoom() *room {
-	return &room{
-		forward: make(chan []byte),
-		join:    make(chan *client),
-		leave:   make(chan *client),
+func newRoom(name string) *room {
+	r := &room{
+		name:    name,
+		forward: make(chan []byte, 256), // buffered to reduce blocking
+		join:    make(chan *client, 64),
+		leave:   make(chan *client, 64),
 		clients: make(map[*client]bool),
+	}
+
+	// Start listening to Redis pub/sub for this room
+	go r.subscribeRedis()
+
+	return r
+}
+
+// subscribeRedis listens to Redis channel and pushes incoming messages into room.forward
+func (r *room) subscribeRedis() {
+	pubsub := rdb.Subscribe(ctx, r.name)
+	defer pubsub.Close()
+
+	ch := pubsub.Channel()
+
+	for msg := range ch {
+		select {
+		case r.forward <- []byte(msg.Payload):
+			// delivered to room loop
+		default:
+			// if forward channel full, drop to avoid blocking
+			log.Printf("[Room:%s] Dropped Redis message (forward channel full)", r.name)
+		}
 	}
 }
 
@@ -42,18 +76,42 @@ func newRoom() *room {
 // join: add client to room.
 // leave: remove client from room, close their channel.
 // forward: broadcast a message to all connected clients.
-
 func (r *room) run() {
 	for {
 		select {
 		case client := <-r.join:
-			r.clients[client] = true
+			// safely add new client
+			if _, exists := r.clients[client]; !exists {
+				r.clients[client] = true
+				log.Printf("[Room:%s] Client %s joined | total: %d",
+					r.name, client.name, len(r.clients))
+			}
+
 		case client := <-r.leave:
-			delete(r.clients, client)
-			close(client.receive)
+			// safely remove client
+			if _, exists := r.clients[client]; exists {
+				delete(r.clients, client)
+				close(client.receive)
+				log.Printf("[Room:%s] Client %s left | total: %d",
+					r.name, client.name, len(r.clients))
+			}
+
 		case msg := <-r.forward:
+			// publish to Redis so other servers can see it
+			if err := rdb.Publish(ctx, r.name, msg).Err(); err != nil {
+				log.Printf("[Room:%s] Redis publish error: %v", r.name, err)
+				continue
+			}
+
+			// broadcast locally too
 			for client := range r.clients {
-				client.receive <- msg
+				select {
+				case client.receive <- msg: // non-blocking send
+				default:
+					// client channel is full → drop message to avoid blocking room
+					log.Printf("[Room:%s] Dropping message for %s (slow client)",
+						r.name, client.name)
+				}
 			}
 		}
 	}
@@ -76,7 +134,7 @@ func getRoom(name string) *room {
 	if r, ok := rooms[name]; ok {
 		return r
 	}
-	r := newRoom()
+	r := newRoom(name)
 	rooms[name] = r
 	go r.run()
 	return r
@@ -109,3 +167,8 @@ func (r *room) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	go client.write()
 	client.read()
 }
+
+// 1.Added rdb = redis.NewClient(...) for Redis connection.
+// 2.newRoom now calls subscribeRedis to listen for messages from Redis.
+// 3.When a client sends a message → it goes to r.forward → room publishes it to Redis.
+// 4.When Redis delivers a message → it’s broadcast to all local clients in that room.
