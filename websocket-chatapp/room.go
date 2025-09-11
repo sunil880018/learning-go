@@ -12,6 +12,8 @@ import (
 	"github.com/redis/go-redis/v9"
 )
 
+// redis documentation
+// https://redis.uptrace.dev/guide/go-redis.html
 type room struct {
 
 	// holds all current clients in the room
