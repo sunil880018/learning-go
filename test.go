@@ -1,18 +1,29 @@
 package main
 
 import (
-	"fmt"
-	"sync"
+	"encoding/json"
+	"log"
+	"os"
 )
 
-var mt sync.Mutex
+type Todo struct {
+	UserID    int    `json:"userId"`
+	ID        int    `json:"id"`
+	Title     string `json:"title"`
+	Completed bool   `json:"completed"`
+}
 
 func main() {
-	couter := 0
-	mt.Lock()
-	for i := 0; i < 1000; i++ {
-		couter++
+	todo := Todo{
+		UserID:    1,
+		ID:        101,
+		Title:     "Learn Go",
+		Completed: false,
 	}
-	mt.Unlock()
-	fmt.Println("Counter : ", couter)
+
+	encoder := json.NewEncoder(os.Stdout)
+	err := encoder.Encode(todo)
+	if err != nil {
+		log.Panic(err)
+	}
 }
