@@ -78,11 +78,6 @@ type ApiResponse struct {
 	Message string `json:"message"`
 }
 
-func main() {
-	http.HandleFunc("/send-otp", SendPhoneOtpHandler)
-	log.Fatal(http.ListenAndServe(":8080", nil))
-}
-
 func SendPhoneOtpHandler(w http.ResponseWriter, r *http.Request) {
 	var req SendOtpReq
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
@@ -189,4 +184,9 @@ func respondJSON(w http.ResponseWriter, resp ApiResponse) {
 
 func GenerateOTP() string {
 	return fmt.Sprintf("%06d", time.Now().UnixNano()%1000000)
+}
+
+func main() {
+	http.HandleFunc("/send-otp", SendPhoneOtpHandler)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
