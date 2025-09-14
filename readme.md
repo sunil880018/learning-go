@@ -144,5 +144,49 @@ This guide provides the fundamental Go commands needed for project development. 
 | `npm install package@1.0.0` | `go get package@v1.0.0` |
 | `npm list`                  | `go list -m all`        |
 | `package-lock.json`         | `go.sum`                |
+| `nodemon`                   | `air`                   |
 
 Would you like an example project structure in Go similar to a Node.js project?
+
+### like nodemon in node js, similar in go (Air)
+
+### 1.install air
+
+```sh
+ go install github.com/air-verse/air@latest
+
+```
+
+### 2.set path
+
+```sh
+open nano ~/.zshrc
+```
+
+```sh
+export PATH=$PATH:$(go env GOPATH)/bin
+```
+
+### 3.Save and exit
+
+```sh
+In nano: press CTRL+O → Enter → CTRL+X
+```
+
+### 4. Reload .zshrc
+
+```sh
+source ~/.zshrc
+```
+
+### 5. Now check if air works
+
+```sh
+air -v
+```
+
+### 6. Run the main.go file
+
+```sh
+air
+```
