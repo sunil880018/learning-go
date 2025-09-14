@@ -1,29 +1,49 @@
 package main
 
 import (
-	"encoding/json"
+	"fmt"
 	"log"
-	"os"
+	"net/http"
+
+	"go.uber.org/ratelimit"
 )
 
-type Todo struct {
-	UserID    int    `json:"userId"`
-	ID        int    `json:"id"`
-	Title     string `json:"title"`
-	Completed bool   `json:"completed"`
+// --- Middleware ---
+func rateLimitMiddleware(rl ratelimit.Limiter, next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		rl.Take() // block until allowed
+		next.ServeHTTP(w, r)
+	})
+}
+
+// --- API Handlers ---
+func homeHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Home API → OK")
+}
+
+func userHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "User API → OK")
+}
+
+func orderHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Order API → OK")
 }
 
 func main() {
-	todo := Todo{
-		UserID:    1,
-		ID:        101,
-		Title:     "Learn Go",
-		Completed: false,
-	}
+	// --- One global limiter for ALL APIs ---
+	globalLimiter := ratelimit.New(200) // 200 req/sec total
 
-	encoder := json.NewEncoder(os.Stdout)
-	err := encoder.Encode(todo)
-	if err != nil {
-		log.Panic(err)
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", homeHandler)
+	mux.HandleFunc("/user", userHandler)
+	mux.HandleFunc("/order", orderHandler)
+
+	// Wrap the entire mux with the global limiter
+	handler := rateLimitMiddleware(globalLimiter, mux)
+
+	// --- Start server ---
+	log.Println("server listening on :8080")
+	if err := http.ListenAndServe(":8080", handler); err != nil {
+		log.Fatal(err)
 	}
 }

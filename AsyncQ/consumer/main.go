@@ -2,11 +2,21 @@ package main
 
 import (
 	"async-queue/producer"
+	"context"
 	"log"
 	"time"
 
 	"github.com/hibiken/asynq"
+	"go.uber.org/ratelimit"
 )
+
+// --- Middleware for task handlers ---
+func rateLimitedHandler(rl ratelimit.Limiter, handler func(context.Context, *asynq.Task) error) func(context.Context, *asynq.Task) error {
+	return func(ctx context.Context, t *asynq.Task) error {
+		rl.Take() // Block until allowed by limiter
+		return handler(ctx, t)
+	}
+}
 
 func main() {
 	// --- PRODUCER: enqueue a task ---
@@ -48,8 +58,15 @@ func main() {
 	// Router for task handlers
 	mux := asynq.NewServeMux()
 
+	// Global limiter → e.g., max 50 tasks/sec (adjust per downstream SLA)
+	globalLimiter := ratelimit.New(50)
+
 	// “Whenever a task of type email:deliver arrives, call this handler.”
-	mux.HandleFunc(producer.TypeEmailDelivery, producer.HandleEmailDeliveryTask)
+
+	mux.HandleFunc(
+		producer.TypeEmailDelivery,
+		rateLimitedHandler(globalLimiter, producer.HandleEmailDeliveryTask),
+	)
 
 	if err := srv.Run(mux); err != nil {
 		log.Fatalf("could not run server: %v", err)
