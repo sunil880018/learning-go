@@ -148,7 +148,7 @@ This guide provides the fundamental Go commands needed for project development. 
 
 Would you like an example project structure in Go similar to a Node.js project?
 
-### like nodemon in node js, similar in go (Air)
+### Air in Go is similar to Nodemon in Node.js.
 
 ### 1.install air
 
