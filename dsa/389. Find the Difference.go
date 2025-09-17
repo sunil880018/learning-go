@@ -1,3 +1,5 @@
+package main
+
 func findTheDifference(s string, t string) byte {
 	result := byte(0)
 
@@ -9,4 +11,10 @@ func findTheDifference(s string, t string) byte {
 	}
 
 	return result
+}
+
+func main() {
+	s := "abcd"
+	t := "abcde"
+	println(findTheDifference(s, t))
 }
