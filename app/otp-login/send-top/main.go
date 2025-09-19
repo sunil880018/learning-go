@@ -17,9 +17,9 @@ import (
 
 // Config/env
 var (
-	RESEND_INTERVAL = 60 * time.Second
+	RESEND_INTERVAL = 60 * time.Second // 60 seconds
 	MAX_RETRIES     = 5
-	OTP_TTL         = 5 * time.Minute
+	OTP_TTL         = 5 * time.Minute // 5 minutes
 )
 
 // Globals
@@ -33,7 +33,7 @@ var (
 func init() {
 	var err error
 	// DB
-	db, err = gorm.Open(postgres.Open(os.Getenv("DATABASE_DSN")), &gorm.Config{})
+	db, err = gorm.Open(postgres.Open(os.Getenv("DATABASE_URL")), &gorm.Config{})
 	if err != nil {
 		log.Fatalf("DB init: %v", err)
 	}
