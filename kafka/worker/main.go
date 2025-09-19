@@ -46,6 +46,7 @@ func main() {
 			case <-sigchan:
 				fmt.Println("Interrupt is detected")
 				doneCh <- struct{}{}
+				break
 			}
 		}
 	}()

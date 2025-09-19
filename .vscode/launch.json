@@ -6,7 +6,7 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceFolder}/dsa/692. Top K Frequent Words.go"
+            "program": "${workspaceFolder}/solid-principle/1.Single Responsibility Principle (SRP).go"
         }
     ]
 }
