@@ -6,7 +6,7 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceFolder}/solid-principle/1.Single Responsibility Principle (SRP).go"
+            "program": "${workspaceFolder}/dsa/18.remove duplicate.go"
         }
     ]
 }
