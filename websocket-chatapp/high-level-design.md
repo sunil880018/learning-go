@@ -1,5 +1,7 @@
 # Chat Application (Go + WebSockets)
 
+## Used pure web socket, You can use Socket.io for better performance
+
 ## 🔹 High-Level Flow
 
 ### 1. HTTP Server Setup (`main.go`)
