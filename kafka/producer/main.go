@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -16,6 +17,7 @@ type Order struct {
 
 func main() {
 	http.HandleFunc("/order", placeOrder)
+	fmt.Println("Server is listening on port 3000...")
 	log.Fatal(http.ListenAndServe(":3000", nil))
 }
 
