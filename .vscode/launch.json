@@ -6,7 +6,7 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceFolder}/kafka/worker/main.go"
+            "program": "${workspaceFolder}/demo/test.go"
         },
         
     ]
