@@ -7,7 +7,7 @@ import (
 	"golang.org/x/time/rate"
 )
 
-func rateLimiter(next func(w http.ResponseWriter, r *http.Request)) http.Handler {
+func RateLimiter(next func(w http.ResponseWriter, r *http.Request)) http.Handler {
 	limiter := rate.NewLimiter(2, 4) // refill rate of 2 requests per second, with a maximum burst size of 4
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if !limiter.Allow() {
