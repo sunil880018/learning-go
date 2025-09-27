@@ -45,7 +45,7 @@ dlv
             "type":"go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceFolder}",
+            "program": "${workspaceFolder}/dsa/main.go",
         }
     ]
 }

@@ -17,6 +17,7 @@ func main() {
 	fmt.Println(a) //a={5,6,7}, len=3, cap=6 because --> cap(x) - start_index = 10 - 4 = 6
 	fmt.Println("Length of a", len(a))
 	fmt.Println("Capacity of a", cap(a))
+
 	y := alterSlice(a)
 
 	fmt.Println(x) // x= {1,2,3,4,10,6,7} len=7, cap=10
