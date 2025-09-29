@@ -62,13 +62,60 @@ Durable, scalable object storage.
 
 ## 💻 EC2 (Elastic Compute Cloud)
 
-Virtual servers with flexible compute power.  
+An EC2 instance is a virtual server in the cloud that comes with configurable CPU, memory (RAM), storage (hard disk/SSD), and operating system.
+It gives you the flexibility to choose the right compute resources for your workload.
+
 **Use case:** Run APIs, backend services, or ML model inference servers.
+When launching an EC2 instance, you need to configure several settings that define its compute power, storage, security, and networking.
+
+🖥️ Instance Type
+
+Select the hardware capacity such as CPU, memory, and network performance.
+👉 Example: t2.micro for free tier, m5.large for production workloads.
+
+💿 AMI (Amazon Machine Image)
+
+Choose the operating system and pre-installed software (Linux, Windows, Mac, etc.).
+👉 Example: Ubuntu Server 22.04, Amazon Linux, Windows Server.
+
+📦 Storage
+
+Configure the type and size of storage (EBS volumes, SSD, or HDD).
+👉 Example: 30GB General Purpose SSD for web apps.
+
+🔒 Security Groups
+
+Set up firewall rules to control inbound and outbound traffic.
+👉 Example: Allow port 22 for SSH, port 80/443 for HTTP/HTTPS.
+
+🔑 Key Pair
+
+Create or use an existing key pair for SSH access into the instance.Like login on your computer.
+👉 Example: Download .pem file and connect via terminal.
+
+🌐 Network Settings
+
+Configure VPC, subnet, and IP addresses (public/private).
+👉 Example: Place instance in a private subnet with NAT Gateway for security.
+
+🛡️ IAM Role
+
+Attach an IAM role to give the instance permissions to access other AWS resources.
+👉 Example: Grant S3 read access without embedding credentials.
+
+⚙️ User Data
+
+Add bootstrap scripts to run automatically when the instance starts.
+👉 Example: Install Apache, set environment variables, configure apps.
+
+📍 Elastic IP
+
+Optionally associate a static IP address for consistent public access.
+👉 Example: Assign an Elastic IP so your app server always has the same IP.
 
 ## 🔐 IAM (Identity and Access Management)
 
-Granular user and role-based access control.  
-**Use case:** Allow developers S3 read access but restrict deletion rights.
+Used to securely manage users, groups, and roles, assign fine-grained permissions for accessing AWS services, and generate access keys, secret key for programmatic access in applications.
 
 ---
 
