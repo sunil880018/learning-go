@@ -44,7 +44,7 @@ dlv
             "name": "Launch Package",
             "type":"go",
             "request": "launch",
-            "mode": "auto",
+            "mode": "debug",
             "program": "${workspaceFolder}/dsa/main.go",
         }
     ]
