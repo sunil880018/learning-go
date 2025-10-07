@@ -3,28 +3,34 @@ package main
 import "fmt"
 
 func main() {
-	x := []int{1, 2, 3, 4, 5} // len=5, cap=5
+	x := []int{1, 2, 3, 4, 5}
 	fmt.Println("Length of x", len(x))
 	fmt.Println("Capacity of x", cap(x))
+	// len=5, cap=5
 
-	x = append(x, 6) //  len=6, cap=10
+	x = append(x, 6)
 	fmt.Println("Length of x", len(x))
 	fmt.Println("Capacity of x", cap(x))
-	x = append(x, 7) //  len=7, cap=10
+	//  len=6, cap=10
+	x = append(x, 7)
 	fmt.Println("Length of x", len(x))
 	fmt.Println("Capacity of x", cap(x))
+	//  len=7, cap=10
 	a := x[4:]
-	fmt.Println(a) //a={5,6,7}, len=3, cap=6 because --> cap(x) - start_index = 10 - 4 = 6
+	fmt.Println(a)
 	fmt.Println("Length of a", len(a))
 	fmt.Println("Capacity of a", cap(a))
 	y := alterSlice(a)
+	//a={5,6,7}, len=3, cap=6 because --> cap(x) - start_index = 10 - 4 = 6
 
-	fmt.Println(x) // x= {1,2,3,4,10,6,7} len=7, cap=10
+	fmt.Println(x)
 	fmt.Println("Length of x", len(x))
 	fmt.Println("Capacity of x", cap(x))
+	// x= {1,2,3,4,10,6,7} len=7, cap=10
 	fmt.Println(y)
-	fmt.Println("Length of y", len(y)) // y= {10,6,7,11},len=4, cap=6
+	fmt.Println("Length of y", len(y))
 	fmt.Println("Capacity of y", cap(y))
+	// y= {10,6,7,11},len=4, cap=6
 
 }
 func alterSlice(a []int) []int {
